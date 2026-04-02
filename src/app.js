@@ -20,6 +20,11 @@ function isLocalOrPrivateHost(hostname = "") {
   return false;
 }
 
+function isTrustedDeploymentHost(hostname = "") {
+  const host = String(hostname).toLowerCase();
+  return host === "evidencerxindia.netlify.app" || host.endsWith(".netlify.app");
+}
+
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -61,6 +66,11 @@ app.use(
 
       try {
         const parsed = new URL(normalizedOrigin);
+        if (isTrustedDeploymentHost(parsed.hostname)) {
+          callback(null, true);
+          return;
+        }
+
         if (isLocalOrPrivateHost(parsed.hostname)) {
           callback(null, true);
           return;
