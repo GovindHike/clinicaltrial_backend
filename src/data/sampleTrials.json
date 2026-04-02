@@ -1,0 +1,24 @@
+[
+  {
+    "nctId": "NCT12345678",
+    "title": "Metformin plus structured lifestyle program in Type 2 Diabetes",
+    "phase": "PHASE 3",
+    "enrollment": 980,
+    "countries": ["India", "Bangladesh"],
+    "interventions": ["Metformin", "Lifestyle Counseling"],
+    "outcomeMeasures": ["HbA1c reduction at 24 weeks"],
+    "successRateEstimate": "78%",
+    "sideEffectsSummary": "Mild GI discomfort"
+  },
+  {
+    "nctId": "NCT23456789",
+    "title": "Once-daily inhaled combination therapy in COPD",
+    "phase": "PHASE 4",
+    "enrollment": 620,
+    "countries": ["India", "Sri Lanka"],
+    "interventions": ["LAMA/LABA combination inhaler"],
+    "outcomeMeasures": ["Exacerbation-free days"],
+    "successRateEstimate": "69%",
+    "sideEffectsSummary": "Dry mouth, mild headache"
+  }
+]
