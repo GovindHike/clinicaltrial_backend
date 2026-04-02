@@ -20,6 +20,25 @@ function isLocalOrPrivateHost(hostname = "") {
   return false;
 }
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function isAllowedOrigin(origin, allowList) {
+  if (allowList.includes(origin)) {
+    return true;
+  }
+
+  return allowList.some((allowedOrigin) => {
+    if (!allowedOrigin.includes("*")) {
+      return false;
+    }
+
+    const pattern = `^${escapeRegex(allowedOrigin).replace(/\\\*/g, ".*")}$`;
+    return new RegExp(pattern, "i").test(origin);
+  });
+}
+
 app.use(
   cors({
     origin(origin, callback) {
@@ -35,7 +54,7 @@ app.use(
 
       const normalizedOrigin = normalizeOrigin(origin);
 
-      if (env.corsOrigins.includes(normalizedOrigin)) {
+      if (isAllowedOrigin(normalizedOrigin, env.corsOrigins)) {
         callback(null, true);
         return;
       }

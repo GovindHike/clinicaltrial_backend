@@ -4,7 +4,11 @@ dotenv.config();
 
 function normalizeOrigin(origin) {
   if (!origin) return "";
-  return String(origin).trim().replace(/\/+$/, "").toLowerCase();
+  return String(origin)
+    .trim()
+    .replace(/^['\"]|['\"]$/g, "")
+    .replace(/\/+$/, "")
+    .toLowerCase();
 }
 
 function parseCorsOrigins(value) {
@@ -26,7 +30,7 @@ export const env = {
   host: process.env.HOST || "0.0.0.0",
   port: Number(process.env.PORT || 4000),
   mongodbUri: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/vital5_india",
-  corsOrigins: parseCorsOrigins(process.env.CORS_ORIGIN),
+  corsOrigins: parseCorsOrigins(process.env.CORS_ORIGIN || process.env.CORS_ORIGINS),
   clinicalTrialsApiBase:
     process.env.CLINICAL_TRIALS_API_BASE || "https://clinicaltrials.gov/api/v2/studies",
   llmProvider: process.env.LLM_PROVIDER || "openai",
